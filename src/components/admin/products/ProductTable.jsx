@@ -6,6 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
+import Paper from '@mui/material/Paper';
 import {
     GridRowModes,
     DataGrid,
@@ -156,6 +157,7 @@ export default function ProductTable() {
 
     return (
         <Box
+            component={Paper}
             sx={{
                 height: 500,
                 width: '100%',
@@ -165,6 +167,7 @@ export default function ProductTable() {
                 '& .textPrimary': {
                     color: 'text.primary',
                 },
+                mt: 2,
             }}
         >
             <DataGrid
@@ -183,6 +186,6 @@ export default function ProductTable() {
                 }}
                 experimentalFeatures={{ newEditingApi: true }}
             />
-        </Box>
+        </Box >
     );
 }

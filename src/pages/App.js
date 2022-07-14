@@ -8,7 +8,7 @@ export default function App() {
         <Routes>
             <Route path="admin/*" element={<Admin />} />
             <Route path="login" element={<Login />} />
-            <Route path="home" element={<Home />} />
+            <Route path="/" element={<Home />} />
         </Routes>
     );
 }

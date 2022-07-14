@@ -2,7 +2,6 @@ import React from 'react'
 import { Container, CssBaseline, Avatar, Typography, TextField, Grid, Box, FormControlLabel, Button, Checkbox } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { Link } from 'react-router-dom'
-import './login.css'
 
 export default function Login() {
     const [errorText, setErrorText] = React.useState('')
@@ -10,21 +9,32 @@ export default function Login() {
         /* TODO */
     }
     return (
-        <div style={{ backgroundImage: `url(assets/background.jpg)` }} >
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <Box
+                sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Login
+                </Typography>
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <TextField margin="normal" type="email" required fullWidth id="email" label="Email" name="email" autoFocus helperText={errorText} />
+                    <TextField margin="normal" type="password" required fullWidth id="password" label="Password" name="password" autoFocus />
+                    <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
                         Login
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

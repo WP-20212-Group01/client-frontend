@@ -2,12 +2,12 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import OrderHistory from '../../components/admin/orders/OrderHistory'
 import ProductTable from '../../components/admin/products/ProductTable'
-import Topbar from '../../components/admin/Topbar'
+import AdminNavbar from '../../components/admin/AdminNavbar'
 
 export default function Admin() {
     return (
         <div>
-            <Topbar />
+            <AdminNavbar />
             <Routes>
                 <Route path="products" element={<ProductTable />} />
                 <Route path="orders" element={<OrderHistory />} />
