@@ -64,12 +64,12 @@ const fadeImages = [
 	{
 		url: 'assets/slider2.jpg',
 		caption: 'Slide 2',
-		title: "LIGHT"
+		title: "Light"
 	},
 	{
 		url: 'assets/slider3.jpg',
 		caption: 'Slide 3',
-		title: "SCENT"
+		title: "Scent"
 	},
 ];
 const imageStyles = { Width: 300, Height: 300 };
