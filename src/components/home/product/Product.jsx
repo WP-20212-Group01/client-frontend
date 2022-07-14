@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Row, Col } from 'antd';
-
 const Outer = styled.div`
 	display: flex;
 	align-items: center;
@@ -56,17 +54,17 @@ const Button = styled.a`
 `;
 
 const Products = () => {
-    return (
-        <Outer>
-            <Title>
-                <TitleSecondaryText>
-                    Candles & Difusers
-                </TitleSecondaryText>
-                <TitleText>
-                    WEEKLY BEST SELLERS
-                </TitleText>
-            </Title>
-        </Outer>
-    )
+	return (
+		<Outer>
+			<Title>
+				<TitleSecondaryText>
+					Candles & Difusers
+				</TitleSecondaryText>
+				<TitleText>
+					WEEKLY BEST SELLERS
+				</TitleText>
+			</Title>
+		</Outer>
+	)
 }
 export default Products;

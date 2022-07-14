@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Row, Col } from "antd";
 
 const Outer = styled.div`
 	display: flex;
@@ -30,13 +29,13 @@ const Container = styled.div`
 `;
 
 const Categories = () => {
-    return (
-        <Outer>
-            <Title>
-                <TitleText>CATEGORIES</TitleText>
-            </Title>
-        </Outer>
-    );
+	return (
+		<Outer>
+			<Title>
+				<TitleText>CATEGORIES</TitleText>
+			</Title>
+		</Outer>
+	);
 };
 
 export default Categories;
