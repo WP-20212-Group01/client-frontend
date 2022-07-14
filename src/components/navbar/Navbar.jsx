@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Link from '@mui/material/Link';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 const Navbar = () => {
@@ -27,15 +26,7 @@ const Navbar = () => {
                         <Link
                             variant="button"
                             color="text.primary"
-                            href="#"
-                            sx={{ my: 1, mx: 1.5 }}
-                        >
-                            Register
-                        </Link>
-                        <Link
-                            variant="button"
-                            color="text.primary"
-                            href="#"
+                            href="login"
                             sx={{ my: 1, mx: 1.5 }}
                         >
                             Sign in
@@ -43,7 +34,15 @@ const Navbar = () => {
                         <Link
                             variant="button"
                             color="text.primary"
-                            href="#"
+                            href="register"
+                            sx={{ my: 1, mx: 1.5 }}
+                        >
+                            Register
+                        </Link>
+                        <Link
+                            variant="button"
+                            color="text.primary"
+                            href="cart"
                             sx={{ my: 1, mx: 1.5 }}
                         >
                             Cart
