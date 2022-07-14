@@ -36,35 +36,22 @@ export default function Login() {
                         sx={{ mt: 3, mb: 2 }}
                     >
                         Login
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField margin="normal" required fullWidth id="username" label="Username" name="username" autoFocus helperText={errorText} />
-                        <TextField margin="normal" type="password" required fullWidth id="password" label="Password" name="password" autoFocus />
-                        <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Login
-                        </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link to="/forgetpwd" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link to="/signup" variant="body2">
-                                    Don&apos;t have an account? Register
-                                </Link>
-                            </Grid>
+                    </Button>
+                    <Grid container>
+                        <Grid item xs>
+                            <Link to="/forgetpwd" variant="body2">
+                                Forgot password?
+                            </Link>
                         </Grid>
-                    </Box>
+                        <Grid item>
+                            <Link to="/signup" variant="body2">
+                                Don&apos;t have an account? Register
+                            </Link>
+                        </Grid>
+                    </Grid>
                 </Box>
-                <div />
-            </Container>
-        </div>
+            </Box>
+            <div />
+        </Container>
     )
 }
