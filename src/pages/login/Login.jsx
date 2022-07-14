@@ -2,7 +2,6 @@ import React from 'react'
 import { Container, CssBaseline, Avatar, Typography, TextField, Grid, Box, FormControlLabel, Button, Checkbox } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { Link } from 'react-router-dom'
-import './login.css'
 export default function Login() {
     const [errorText, setErrorText] = React.useState('')
     const handleSubmit = async (event) => {
@@ -26,7 +25,7 @@ export default function Login() {
                     Login
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                    <TextField margin="normal" required fullWidth id="username" label="Username" name="username" autoFocus helperText={errorText} />
+                    <TextField margin="normal" type="email" required fullWidth id="email" label="Email" name="email" autoFocus helperText={errorText} />
                     <TextField margin="normal" type="password" required fullWidth id="password" label="Password" name="password" autoFocus />
                     <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
                     <Button
