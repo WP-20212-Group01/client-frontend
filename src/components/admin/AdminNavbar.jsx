@@ -14,7 +14,7 @@ export default function AdminNavbar() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" color="default">
                 <Toolbar>
-                    <Typography variant="h5" component="div" sx={{ flexGrow: 0.1 }}>
+                    <Typography variant="h4" color="inherit" noWrap sx={{ flexGrow: 0.1, fontWeight: 'bold', textShadow: '2px 2px #edebeb' }}>
                         Dashboard
                     </Typography>
                     <Button color="inherit" onClick={toProducts}>Products</Button>
