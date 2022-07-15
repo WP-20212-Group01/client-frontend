@@ -13,17 +13,18 @@ import {
     GridToolbarContainer,
     GridActionsCellItem,
 } from '@mui/x-data-grid';
+import { randomId } from '@mui/x-data-grid-generator';
 const initialRows = [
-    { id: 1, name: "Prouduct 1", price: "$10.00", stock: "10", category: "Category 1", status: "Selling" },
-    { id: 2, name: "Prouduct 2", price: "$20.00", stock: "20", category: "Category 2", status: "Selling" },
-    { id: 3, name: "Prouduct 3", price: "$30.00", stock: "30", category: "Category 3", status: "Selling" },
-    { id: 4, name: "Prouduct 4", price: "$40.00", stock: "40", category: "Category 4", status: "Selling" }
+    { id: randomId(), name: "Prouduct 1", price: "$10.00", stock: "10", category: "Category 1", status: "Selling" },
+    { id: randomId(), name: "Prouduct 2", price: "$20.00", stock: "20", category: "Category 2", status: "Selling" },
+    { id: randomId(), name: "Prouduct 3", price: "$30.00", stock: "30", category: "Category 3", status: "Selling" },
+    { id: randomId(), name: "Prouduct 4", price: "$40.00", stock: "40", category: "Category 4", status: "Selling" }
 ]
 function EditToolbar(props) {
     const { setRows, setRowModesModel } = props;
 
     const handleClick = () => {
-        const id = 69;
+        const id = randomId();
         setRows((oldRows) => [...oldRows, { id, name: '', price: '', stock: '', category: '', status: '', isNew: true }]);
         setRowModesModel((oldModel) => ({
             ...oldModel,
