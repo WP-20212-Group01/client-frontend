@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 const Outer = styled.div`
 	display: flex;
 	align-items: center;
@@ -150,10 +150,12 @@ const Products = () => {
 					{products.map((product, index) => (
 						<Grid item xs={12} md={4} lg={3} key={product.id}>
 							<ProductContainer>
-								<Image src={product.url} />
-								<ProductTitle>{product.name}</ProductTitle>
-								<Price>{product.price}</Price>
-								<Button>Add to cart</Button>
+								<Link to={`/product/${product.id}`} style={{ textDecoration: 'none' }}>
+									<Image src={product.url} />
+									<ProductTitle>{product.name}</ProductTitle>
+									<Price>{product.price}</Price>
+									<Button>Add to cart</Button>
+								</Link>
 							</ProductContainer>
 						</Grid>
 					))}
