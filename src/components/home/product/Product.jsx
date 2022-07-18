@@ -110,21 +110,25 @@ const ProductTitle = styled.div`
 
 const products = [
 	{
+		id: "1",
 		url: 'assets/Honey_soap.png',
 		name: 'Goat Milk Soap',
 		price: '$10.00',
 	},
 	{
+		id: "2",
 		url: 'assets/Creme_candle.png',
 		name: 'Creme Candle',
 		price: '$10.00',
 	},
 	{
+		id: "3",
 		url: 'assets/Coconut.png',
 		name: 'Coconut island',
 		price: '$10.00',
 	},
 	{
+		id: "4",
 		url: 'assets/Choco.png',
 		name: 'Chocolate candle',
 		price: '$10.00',
@@ -144,7 +148,7 @@ const Products = () => {
 			<Container>
 				<Grid container spacing={15}>
 					{products.map((product, index) => (
-						<Grid item xs={12} md={4} lg={3}>
+						<Grid item xs={12} md={4} lg={3} key={product.id}>
 							<ProductContainer>
 								<Image src={product.url} />
 								<ProductTitle>{product.name}</ProductTitle>

@@ -79,21 +79,25 @@ const Button = styled.a`
 
 const categories = [
 	{
+		id: "1",
 		url: 'assets/cat1.jpg',
 		caption: 'Diffusers',
 		description: 'Relieving pain and cramping, improving respiratory health, boosting your mood and healing skin conditions'
 	},
 	{
+		id: "2",
 		url: 'assets/cat2.jpg',
 		caption: 'Soap',
 		description: 'Especially in this current climate, is its ability to prevent and remove the growth of bacteria'
 	},
 	{
+		id: "3",
 		url: 'assets/cat3.jpg',
 		caption: 'Candles',
 		description: 'The sense of smell plays an important role in the physiological effects of mood, stress, and working capacity'
 	},
 	{
+		id: "4",
 		url: 'assets/cat4.jpg',
 		caption: 'Fragrances',
 		description: 'Enhancing the mood, lifting your spirits and reflecting your feeling: happy, mischievous, timid or even reserved'
@@ -109,7 +113,7 @@ const Categories = () => {
 			<Container>
 				<Grid container spacing={7}>
 					{categories.map((category, index) => (
-						<Grid item xs={12} md={4} lg={3}>
+						<Grid item xs={12} md={4} lg={3} key={category.id}>
 							<ImageContainer>
 								<Image src={category.url} />
 							</ImageContainer>
