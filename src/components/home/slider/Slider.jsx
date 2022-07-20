@@ -16,25 +16,6 @@ const Title = styled.h1`
 	color: white;
 `;
 
-const Button1 = styled.a`
-	padding: 13px 50px;
-	font-size: 12px;
-	background-color: white;
-	color: black !important;
-	cursor: pointer;
-	letter-spacing: 3px;
-	margin-right: 10px;
-	border: 1px solid transparent;
-	transition: all 0.3s ease-in-out;
-	font-weight: 700;
-
-	&:hover {
-		background: transparent;
-		color: white !important;
-		border-color: white;
-	}
-`;
-
 const Button = styled.a`
 	padding: 13px 50px;
 	font-size: 12px;
@@ -84,7 +65,6 @@ const Slideshow = () => {
 						<div className="image-container">
 							<InfoContainer>
 								<Title>{fadeImage.title}</Title>
-								<Button1 href="/flame">VIEW MORE</Button1>
 								<Button href="/products">SHOP NOW</Button>
 							</InfoContainer>
 							<img src={fadeImage.url} />
