@@ -1,7 +1,7 @@
 import { Grid, Pagination } from "@mui/material";
 import React from "react";
 import { Outer, Title, TitleSecondaryText, TitleText, Container, ProductContainer, ImageContainer, Image, ProductTitle, Price, Button } from "./listProduct.js";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import axios from '../../axios.js';
 const ListProduct = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -45,9 +45,11 @@ const ListProduct = () => {
                     {products.map((product, index) => (
                         <Grid item xs={12} sm={6} md={4} key={product._id}>
                             <ProductContainer>
-                                <ImageContainer>
-                                    <Image src={product.image} />
-                                </ImageContainer>
+                                <Link to={`/product/${product._id}`} style={{ textDecoration: 'none' }}>
+                                    <ImageContainer>
+                                        <Image src={product.image} />
+                                    </ImageContainer>
+                                </Link>
                                 <ProductTitle>{product.name}</ProductTitle>
                                 <Price>${product.price.$numberDecimal}</Price>
                                 <Button>Add to cart</Button>

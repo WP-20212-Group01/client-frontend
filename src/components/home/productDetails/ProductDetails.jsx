@@ -1,16 +1,19 @@
 import { TableCell, TableRow } from '@mui/material';
 import React from 'react'
 import { DetailLeft, DetailRight, Image, ProductPageDetail, Title, Price, Description, Functions, QuantityContainer, AddToCartButton } from './productDetails'
+import axios from '../../../axios.js';
 export default function ProductDetails(props) {
     const { id } = props;
-    const [product, setProduct] = React.useState({ id, name: 'Product name', price: "$10.00", stock: 10, url: '/assets/Honey_soap.png' });
+    const [product, setProduct] = React.useState({ price: { $numberDecimal: 0 }, image: '', name: '', description: '' });
     const [quantity, setQuantity] = React.useState(1);
     React.useEffect(() => {
-        async function getProduct() {
-
+        axios.get(`/product/${id}`).then(res => {
+            setProduct(res.data);
+        }).catch(err => {
+            console.log(err);
         }
-        getProduct();
-    }, [id]);
+        );
+    }, []);
     return (
         <ProductPageDetail>
             <table>
@@ -18,13 +21,13 @@ export default function ProductDetails(props) {
                     <TableRow>
                         <TableCell>
                             <DetailLeft >
-                                <Image src={product.url} alt="product" />
+                                <Image src={product.image} alt="product" />
                             </DetailLeft>
                         </TableCell>
                         <TableCell>
                             <DetailRight>
                                 <Title>{product.name}</Title>
-                                <Price>{product.price}</Price>
+                                <Price>${product.price.$numberDecimal}</Price>
                                 <Description>
                                     Currently in stock: <b style={{ color: "red" }}>{product.stock}</b>
                                 </Description>
