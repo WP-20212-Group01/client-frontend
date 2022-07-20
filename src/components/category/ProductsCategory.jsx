@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import ListProduct from "./ListProduct";
 import axios from '../../axios.js';
+import { useNavigate } from "react-router-dom";
 const Container = styled.div`
 	margin-top: 30px;
 	padding: 0 5%;
@@ -13,6 +14,7 @@ const Container = styled.div`
 `;
 
 const ProductsCategory = () => {
+    const navigate = useNavigate();
     const [chosenItem, setChosenItem] = useState();
     const [categories, setCategories] = useState([]);
     React.useEffect(() => {
@@ -45,7 +47,9 @@ const ProductsCategory = () => {
                                 <h3 onMouseOver={() => handlePressItem("all")}
                                     onMouseLeave={() => setChosenItem(undefined)}
 
-                                    onClick={() => { }}
+                                    onClick={() => {
+                                        navigate(`/products?category=all&page=1`);
+                                    }}
 
                                     style={{
                                         ...(chosenItem === "all" && {
@@ -64,7 +68,7 @@ const ProductsCategory = () => {
                                         onMouseLeave={() => setChosenItem(undefined)}
 
                                         onClick={() => {
-
+                                            navigate(`/products?categories=${cat.slug}&page=1`);
                                         }}
 
                                         style={{

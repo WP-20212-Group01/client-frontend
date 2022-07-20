@@ -82,25 +82,29 @@ const categories = [
 		id: "1",
 		url: 'assets/cat1.jpg',
 		caption: 'Diffusers',
-		description: 'Relieving pain and cramping, improving respiratory health, boosting your mood and healing skin conditions'
+		description: 'Relieving pain and cramping, improving respiratory health, boosting your mood and healing skin conditions',
+		slug: 'diffusers'
 	},
 	{
 		id: "2",
 		url: 'assets/cat2.jpg',
 		caption: 'Soap',
-		description: 'Especially in this current climate, is its ability to prevent and remove the growth of bacteria'
+		description: 'Especially in this current climate, is its ability to prevent and remove the growth of bacteria',
+		slug: 'soaps'
 	},
 	{
 		id: "3",
 		url: 'assets/cat3.jpg',
 		caption: 'Candles',
-		description: 'The sense of smell plays an important role in the physiological effects of mood, stress, and working capacity'
+		description: 'The sense of smell plays an important role in the physiological effects of mood, stress, and working capacity',
+		slug: 'candles'
 	},
 	{
 		id: "4",
 		url: 'assets/cat4.jpg',
 		caption: 'Fragrances',
-		description: 'Enhancing the mood, lifting your spirits and reflecting your feeling: happy, mischievous, timid or even reserved'
+		description: 'Enhancing the mood, lifting your spirits and reflecting your feeling: happy, mischievous, timid or even reserved',
+		slug: 'fragrances'
 	}
 ]
 
@@ -123,7 +127,7 @@ const Categories = () => {
 							<Description>
 								{category.description}
 							</Description>
-							<Button href="#">Explore</Button>
+							<Button href={`/products?categories=${category.slug}`}>Explore</Button>
 						</Grid>
 					))}
 				</Grid>

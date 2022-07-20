@@ -9,6 +9,7 @@ const ListProduct = () => {
     const handlePageChange = (event, page) => {
         event.preventDefault();
         setSearchParams({
+            ...searchParams,
             page: page
         })
     }
@@ -17,6 +18,7 @@ const ListProduct = () => {
         axios.get('/product', {
             params: {
                 page: searchParams.get('page') || 1,
+                categories: searchParams.get('categories') || 'all',
             }
         }).then(res => {
             if (res.data == null) {
