@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import axios from '../../axios.js';
 const ListProduct = () => {
     const [searchParams, setSearchParams] = useSearchParams();
+    const [totalProductsCount, setTotalProductsCount] = React.useState(0);
     const handlePageChange = (event, page) => {
         event.preventDefault();
         setSearchParams({
@@ -21,7 +22,8 @@ const ListProduct = () => {
             if (res.data == null) {
                 return;
             }
-            setProducts(res.data.data);
+            setProducts(res.data.data.slice(0, 12));
+            setTotalProductsCount(res.data.pagination.total);
             console.log(res);
         }).catch(err => {
             console.log(err);
@@ -32,7 +34,7 @@ const ListProduct = () => {
         <Outer>
             <Title>
                 <TitleSecondaryText>
-                    {products.length} products found
+                    {totalProductsCount} products found
                 </TitleSecondaryText>
                 <TitleText>
                     {products.length > 1 ? "Products" : "Product"}
