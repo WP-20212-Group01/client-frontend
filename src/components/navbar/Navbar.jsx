@@ -20,7 +20,9 @@ const Navbar = () => {
             >
                 <Toolbar sx={{ flexWrap: 'wrap' }}>
                     <Typography variant="h4" color="inherit" noWrap sx={{ flexGrow: 1, fontWeight: 'bold', textShadow: '2px 2px #edebeb' }}>
-                        Candle in the wind
+                        <Link href="/" color="inherit" sx={{ textDecoration: 'none' }}>
+                            Candle in the wind
+                        </Link>
                     </Typography>
                     <nav>
                         <Link
