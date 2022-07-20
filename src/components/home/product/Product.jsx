@@ -161,7 +161,11 @@ const Products = () => {
 					))}
 				</Grid>
 			</Container>
-			<ViewAllButton>View All</ViewAllButton>
+			<ViewAllButton>
+				<Link to="/products" style={{ textDecoration: 'none' }}>
+					View All
+				</Link>
+			</ViewAllButton>
 		</Outer>
 	)
 }

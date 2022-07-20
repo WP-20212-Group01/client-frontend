@@ -7,6 +7,7 @@ import Cart from './cart/Cart';
 import ProductPage from './home/ProductPage';
 import Register from './register/Register';
 import PurchaseHistory from './user/PurchaseHistory';
+import Category from './category/Category';
 export default function App() {
     return (
         <Routes>
@@ -17,6 +18,7 @@ export default function App() {
             <Route path="product/:id" element={<ProductPage />} />
             <Route path="cart" element={<Cart />} />
             <Route path="user/history" element={<PurchaseHistory />} />
+            <Route path="products" element={<Category />} />
         </Routes>
     );
 }
