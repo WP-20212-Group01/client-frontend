@@ -1,5 +1,4 @@
 import React from "react";
-import Products from "../../components/home/product/Product";
 import Slideshow from "../../components/home/slider/Slider";
 import Navbar from "../../components/navbar/Navbar";
 import Favourite from "../../components/home/favourite/Favourite";
@@ -11,7 +10,6 @@ const Home = () => {
         <React.Fragment>
             <Navbar />
             <Slideshow />
-            <Products />
             <Favourite />
             <Aroma />
             <Categories />
