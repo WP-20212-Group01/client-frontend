@@ -82,6 +82,29 @@ export const AddToCartButton = styled.button`
 	margin-left: 20px;
 `;
 
+export const SubmitButton = styled.button`
+	text-transform: uppercase;
+	padding: 13px 40px;
+	font-size: 12px;
+	background-color: black;
+	color: white;
+	cursor: pointer;
+	letter-spacing: 3px;
+	border: 1px solid transparent;
+	transition: all 0.3s ease-in-out;
+	font-weight: 700;
+	width: 195px;
+
+	&:hover {
+		background: transparent;
+		color: black;
+		border-color: black;
+	}
+
+	margin-left: 20px;
+	margin-bottom: 20px;
+`
+
 export const Image = styled.img`
 	width: 100%;
 	height: auto;

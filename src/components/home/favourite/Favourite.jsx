@@ -119,35 +119,35 @@ const Name = styled.div`
 `;
 
 const Favourite = () => {
-    // const id = "62835f4faeba23ff08e7ff65";
-    // const { data: product = {} } = useGetProductByIdQuery({ id });
-    return (
-        <Container>
-            <Left>
-                <img
-                    className="img1"
-                    src="./assets/flavor1.jpg"
-                    alt="product"
-                />
-                <img
-                    className="img2"
-                    alt="product"
-                    src="./assets/flavor2.jpg"
-                />
-            </Left>
-            <Right>
-                <img src={'./assets/flavor3.jpg'}></img>
+	// const id = "62835f4faeba23ff08e7ff65";
+	// const { data: product = {} } = useGetProductByIdQuery({ id });
+	return (
+		<Container>
+			<Left>
+				<img
+					className="img1"
+					src="./assets/flavor1.jpg"
+					alt="product"
+				/>
+				<img
+					className="img2"
+					alt="product"
+					src="./assets/flavor2.jpg"
+				/>
+			</Left>
+			<Right>
+				<img src={'./assets/flavor3.jpg'} alt="product"></img>
 
-                <h3>OUR FAVOURITES</h3>
-                <Name>ASKKA SOAP</Name>
-                <p>
-                    With rich in nutrients, Askka soap is a gentle cleanser,
-                    natural exfoliant. They help you to improve dry skin,
-                    prevent acne and support a healthy skin microbiome.
-                </p>
-            </Right>
-        </Container>
-    );
+				<h3>OUR FAVOURITES</h3>
+				<Name>ASKKA SOAP</Name>
+				<p>
+					With rich in nutrients, Askka soap is a gentle cleanser,
+					natural exfoliant. They help you to improve dry skin,
+					prevent acne and support a healthy skin microbiome.
+				</p>
+			</Right>
+		</Container>
+	);
 }
 
 export default Favourite;
