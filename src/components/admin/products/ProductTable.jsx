@@ -14,12 +14,7 @@ import {
     GridActionsCellItem,
 } from '@mui/x-data-grid';
 import { randomId } from '@mui/x-data-grid-generator';
-const initialRows = [
-    { id: randomId(), name: "Prouduct 1", price: "$10.00", stock: "10", category: "Category 1", status: "Selling" },
-    { id: randomId(), name: "Prouduct 2", price: "$20.00", stock: "20", category: "Category 2", status: "Selling" },
-    { id: randomId(), name: "Prouduct 3", price: "$30.00", stock: "30", category: "Category 3", status: "Selling" },
-    { id: randomId(), name: "Prouduct 4", price: "$40.00", stock: "40", category: "Category 4", status: "Selling" }
-]
+import axios from '../../../axios';
 function EditToolbar(props) {
     const { setRows, setRowModesModel } = props;
 
@@ -47,9 +42,29 @@ EditToolbar.propTypes = {
 };
 
 export default function ProductTable() {
-    const [rows, setRows] = React.useState(initialRows);
+    const [rows, setRows] = React.useState([]);
     const [rowModesModel, setRowModesModel] = React.useState({});
-
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [total, setTotal] = React.useState(0);
+    const handlePageChange = (page) => {
+        setCurrentPage(page + 1);
+    }
+    React.useEffect(() => {
+        async function fetchData() {
+            const response = await axios.get('/product', {
+                params: {
+                    page: currentPage,
+                }
+            });
+            const { data } = response.data;
+            const { total } = response.data.pagination;
+            setTotal(total);
+            const processedData = data.map(({ _id: id, name, category, stock, status, price: { $numberDecimal: price } }) => ({ id, name, category, stock, status, price }));
+            console.log(processedData);
+            setRows(processedData);
+        }
+        fetchData();
+    }, [currentPage]);
     const handleRowEditStart = (params, event) => {
         event.defaultMuiPrevented = true;
     };
@@ -92,11 +107,10 @@ export default function ProductTable() {
             editable: true
         },
         {
-            field: 'price',
-            headerName: 'Price',
-            type: 'string',
-            flex: 0.3,
-            editable: true
+            field: 'category',
+            headerName: 'Category',
+            flex: 0.5,
+            editable: true,
         },
         {
             field: 'stock',
@@ -106,16 +120,17 @@ export default function ProductTable() {
             editable: true,
         },
         {
-            field: 'category',
-            headerName: 'Category',
-            flex: 0.5,
-            editable: true,
-        },
-        {
             field: 'status',
             headerName: 'Status',
             flex: 0.3,
             editable: true,
+        },
+        {
+            field: 'price',
+            headerName: 'Price',
+            type: 'string',
+            flex: 0.3,
+            editable: true
         },
         {
             field: 'actions',
@@ -175,6 +190,12 @@ export default function ProductTable() {
                 rows={rows}
                 columns={columns}
                 editMode="row"
+                pageSize={12}
+                rowsPerPageOptions={[12]}
+                rowCount={total}
+                pagination
+                paginationMode="server"
+                onPageChange={handlePageChange}
                 rowModesModel={rowModesModel}
                 onRowEditStart={handleRowEditStart}
                 onRowEditStop={handleRowEditStop}
