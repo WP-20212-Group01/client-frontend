@@ -9,7 +9,7 @@ const ListProduct = () => {
     const handlePageChange = (event, page) => {
         event.preventDefault();
         setSearchParams({
-            ...searchParams,
+            categories: searchParams.get('categories'),
             page: page
         })
     }
@@ -60,7 +60,7 @@ const ListProduct = () => {
                     ))}
                 </Grid>
             </Container>
-            <Pagination count={10} sx={{ mt: 10 }} onChange={handlePageChange} />
+            <Pagination count={Math.ceil(totalProductsCount / 12)} sx={{ mt: 10 }} onChange={handlePageChange} />
         </Outer>
     );
 }
