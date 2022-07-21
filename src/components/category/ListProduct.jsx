@@ -13,11 +13,7 @@ const ListProduct = () => {
     const handlePageChange = (event, page) => {
         event.preventDefault();
         setSearchParams({
-<<<<<<< HEAD
             categories: searchParams.get('categories'),
-=======
-            categories: searchParams.get("categories"),
->>>>>>> 5fe906aa3a52f97f465058ba306d30ba217c969a
             page: page
         })
     }
@@ -79,13 +75,8 @@ const ListProduct = () => {
                                     </ImageContainer>
                                 </Link>
                                 <ProductTitle>{product.name}</ProductTitle>
-<<<<<<< HEAD
                                 <Price>${product.price}</Price>
-                                <Button>Add to cart</Button>
-=======
-                                <Price>${product.price.$numberDecimal}</Price>
                                 <Button onClick={() => addToCart(product)}>Add to cart</Button>
->>>>>>> 5fe906aa3a52f97f465058ba306d30ba217c969a
                             </ProductContainer>
                         </Grid>
                     ))}
