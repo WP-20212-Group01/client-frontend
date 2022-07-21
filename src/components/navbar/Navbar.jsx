@@ -28,7 +28,7 @@ const Navbar = () => {
                         <Link
                             variant="button"
                             color="text.primary"
-                            href="login"
+                            href="/login"
                             sx={{ my: 1, mx: 1.5 }}
                         >
                             Sign in
@@ -36,7 +36,7 @@ const Navbar = () => {
                         <Link
                             variant="button"
                             color="text.primary"
-                            href="register"
+                            href="/register"
                             sx={{ my: 1, mx: 1.5 }}
                         >
                             Register
@@ -44,7 +44,7 @@ const Navbar = () => {
                         <Link
                             variant="button"
                             color="text.primary"
-                            href="cart"
+                            href="/cart"
                             sx={{ my: 1, mx: 1.5 }}
                         >
                             Cart
