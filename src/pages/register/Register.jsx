@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, CssBaseline, Avatar, Typography, TextField, Box, Button } from '@mui/material'
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import { Link } from 'react-router-dom';
 export default function Register() {
     /* eslint-disable */
     const [errorMail, setErrorMail] = React.useState('')
@@ -36,10 +37,16 @@ export default function Register() {
                         type="submit"
                         fullWidth
                         variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
+                        sx={{
+                            mt: 3, mb: 2, backgroundColor: 'black', '&:hover': {
+                                backgroundColor: '#fff',
+                                color: '#000',
+                            }
+                        }}
                     >
                         Submit
                     </Button>
+                    <Link to="/" variant="body2">Back to home page</Link>
                 </Box>
             </Box>
             <div />
