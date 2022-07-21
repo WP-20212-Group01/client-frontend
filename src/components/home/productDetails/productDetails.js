@@ -100,13 +100,10 @@ export const SubmitButton = styled.button`
 		color: black;
 		border-color: black;
 	}
-
-	margin-left: 20px;
-	margin-bottom: 20px;
 `
 
 export const Image = styled.img`
-	width: 100%;
-	height: auto;
+	width: 600px;
+	height: 600px;
 	object-fit: cover;
 `;

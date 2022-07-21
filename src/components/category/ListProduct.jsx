@@ -53,7 +53,7 @@ const ListProduct = () => {
                                     </ImageContainer>
                                 </Link>
                                 <ProductTitle>{product.name}</ProductTitle>
-                                <Price>${product.price.$numberDecimal}</Price>
+                                <Price>${product.price}</Price>
                                 <Button>Add to cart</Button>
                             </ProductContainer>
                         </Grid>

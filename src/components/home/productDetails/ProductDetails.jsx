@@ -4,7 +4,7 @@ import { DetailLeft, DetailRight, Image, ProductPageDetail, Title, Price, Descri
 import axios from '../../../axios.js';
 export default function ProductDetails(props) {
     const { id } = props;
-    const [product, setProduct] = React.useState({ price: { $numberDecimal: 0 }, image: '', name: '', description: '' });
+    const [product, setProduct] = React.useState({});
     const [quantity, setQuantity] = React.useState(1);
     React.useEffect(() => {
         axios.get(`/product/${id}`).then(res => {
@@ -28,7 +28,7 @@ export default function ProductDetails(props) {
                             <TableCell>
                                 <DetailRight>
                                     <Title>{product.name}</Title>
-                                    <Price>${product.price.$numberDecimal}</Price>
+                                    <Price>${product.price}</Price>
                                     <Description>
                                         Currently in stock: <b style={{ color: "red" }}>{product.stock}</b>
                                     </Description>

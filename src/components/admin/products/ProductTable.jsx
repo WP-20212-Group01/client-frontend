@@ -59,7 +59,7 @@ export default function ProductTable() {
             const { data } = response.data;
             const { total } = response.data.pagination;
             setTotal(total);
-            const processedData = data.map(({ _id: id, name, category, stock, status, price: { $numberDecimal: price } }) => ({ id, name, category, stock, status, price }));
+            const processedData = data.map(({ _id: id, name, category: { name: categoryName }, stock, status, price }) => ({ id, name, categoryName, stock, status, price }));
             console.log(processedData);
             setRows(processedData);
         }
@@ -107,7 +107,7 @@ export default function ProductTable() {
             editable: true
         },
         {
-            field: 'category',
+            field: 'categoryName',
             headerName: 'Category',
             flex: 0.5,
             editable: true,
