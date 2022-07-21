@@ -2,7 +2,7 @@ import { TableCell, TableRow, Table, TableBody } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
-import ListProduct from "./ListProduct";
+import ListProduct from "./ListProduct.jsx";
 import axios from '../../axios.js';
 import { useNavigate } from "react-router-dom";
 const Container = styled.div`
