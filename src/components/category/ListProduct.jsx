@@ -1,15 +1,19 @@
 import { Grid, Pagination } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Outer, Title, TitleSecondaryText, TitleText, Container, ProductContainer, ImageContainer, Image, ProductTitle, Price, Button } from "./listProduct.js";
 import { useSearchParams, Link } from "react-router-dom";
 import axios from '../../axios.js';
+
+const cartFromLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]');
+
+
 const ListProduct = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [totalProductsCount, setTotalProductsCount] = React.useState(0);
     const handlePageChange = (event, page) => {
         event.preventDefault();
         setSearchParams({
-            ...searchParams,
+            categories: searchParams.get("categories"),
             page: page
         })
     }
@@ -32,6 +36,24 @@ const ListProduct = () => {
         }
         );
     }, [searchParams])
+
+    const [cart, setCart] = useState(cartFromLocalStorage);
+
+    //add to cart
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
+
+
+
+
+
+
+    const addToCart = (product) => {
+        console.log("added to cart");
+        setCart([...cart, product]);
+    }
+
     return (
         <Outer>
             <Title>
@@ -54,7 +76,7 @@ const ListProduct = () => {
                                 </Link>
                                 <ProductTitle>{product.name}</ProductTitle>
                                 <Price>${product.price.$numberDecimal}</Price>
-                                <Button>Add to cart</Button>
+                                <Button onClick={() => addToCart(product)}>Add to cart</Button>
                             </ProductContainer>
                         </Grid>
                     ))}

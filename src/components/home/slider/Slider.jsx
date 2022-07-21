@@ -65,7 +65,7 @@ const Slideshow = () => {
 						<div className="image-container">
 							<InfoContainer>
 								<Title>{fadeImage.title}</Title>
-								<Button href="/products">SHOP NOW</Button>
+								<Button href="/products?category=all&page=1">SHOP NOW</Button>
 							</InfoContainer>
 							<img src={fadeImage.url} />
 
