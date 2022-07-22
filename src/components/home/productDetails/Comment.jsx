@@ -1,36 +1,38 @@
 import React, { useEffect } from 'react'
 import { Title, SubmitButton } from './productDetails.js';
 import { Commenter, Container, Content } from './comment.js';
-import { TextField, Grid } from '@mui/material';
+import { TextField, Grid, Snackbar, Alert } from '@mui/material';
 import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
 export default function Comment(props) {
 
     const { id } = props;
+    const [open, setOpen] = React.useState(false);
     const [nameText, setNameText] = React.useState('');
     const [commentText, setCommentText] = React.useState('');
     const [name, setName] = React.useState('');
-    const [comment, setComment] = React.useState('');
-    const handleSubmit = () => {
+    const [comment, setComment] = React.useState([]);
+    const handleSubmit = async () => {
         if (!name) setNameText('Name is required');
-        else setNameText(name);
+        else setNameText('');
         if (!comment) setCommentText('Comment is required');
-        else setCommentText(comment);
+        else setCommentText('');
+        if (name && comment) {
+            const payload = {
+                product: id,
+                name,
+                comment
+            };
+            console.log(payload)
+            const response = await axios.post(`/comment`, payload);
+            if (response.status === 201) {
+                setName('');
+                setComment('');
+                setOpen(true);
+                comments.push(payload);
+            }
+        }
     }
-
-    //post comment
-    useEffect(() => {
-        axios.post(`/comment`, {
-            product: id,
-            name: nameText,
-            comment: commentText
-        }).then(res => {
-            console.log(res);
-        }).catch(err => {
-            console.log(err);
-        })
-    })
-
     const [searchParams] = useSearchParams();
 
     const [comments, setComments] = React.useState([]);
@@ -47,8 +49,8 @@ export default function Comment(props) {
         }).catch(err => {
             console.log(err);
         });
-    }, [searchParams, id]);
-
+    }, [searchParams, id, comments]);
+    const handleClose = () => setOpen(false);
     return (
         <>
             <Grid container>
@@ -66,13 +68,8 @@ export default function Comment(props) {
                 </Grid>
                 <Grid item xs={6}>
                     <Container>
-                        {/* <Title>Comments</Title>
-                        <Commenter>Nguyen Dang Ninh</Commenter>
-                        <Content>"This is the best candle in the world"</Content>
-                        <Commenter>dum</Commenter>
-                        <Content>"10/10 would buy again lol"</Content> */}
                         {comments.map((comment, index) => (
-                            <Container>
+                            <Container key={index}>
                                 <Commenter>{comment.name}</Commenter>
                                 <Content>{comment.comment}</Content>
                             </Container>
@@ -80,7 +77,9 @@ export default function Comment(props) {
                     </Container>
                 </Grid>
             </Grid>
-
+            <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
+                <Alert severity="success">Comment successfully!</Alert>
+            </Snackbar>
         </>
     )
 }
