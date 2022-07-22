@@ -20,6 +20,7 @@ export default function ProductDetails(props) {
     }, [id]);
 
     const [open, setOpen] = React.useState(false);
+    const [openLimitExceeded, setOpenLimitExceeded] = React.useState(false);
     const [cart, setCart] = useState(cartFromLocalStorage);
 
     //add to cart
@@ -28,8 +29,17 @@ export default function ProductDetails(props) {
     }, [cart]);
 
     const addToCart = (product) => {
+        // Check if quantity is greater than current stock
+        if (quantity > product.stock) {
+            setOpenLimitExceeded(true);
+            return;
+        }
+        let subCart = [];
+        for (let i = 0; i < quantity; i++) {
+            subCart.push(product);
+        }
+        setCart([...cart, ...subCart]);
         setOpen(true);
-        setCart([...cart, product]);
     }
     const handleClose = () => {
         setOpen(false);
@@ -91,6 +101,9 @@ export default function ProductDetails(props) {
                 </table>
                 <Snackbar open={open} autoHideDuration={1000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
                     <Alert severity="success">Add to cart successfully</Alert>
+                </Snackbar>
+                <Snackbar open={openLimitExceeded} autoHideDuration={1000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+                    <Alert severity="error">The selected quantity is greater than the current stock!</Alert>
                 </Snackbar>
             </ProductPageDetail>
         </>
