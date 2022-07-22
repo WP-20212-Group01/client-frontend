@@ -1,4 +1,4 @@
-import { Grid, Pagination } from "@mui/material";
+import { Grid, Pagination, Alert, Snackbar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Outer, Title, TitleSecondaryText, TitleText, Container, ProductContainer, ImageContainer, Image, ProductTitle, Price, Button } from "./listProduct.js";
 import { useSearchParams, Link } from "react-router-dom";
@@ -10,6 +10,7 @@ const cartFromLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]');
 const ListProduct = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [totalProductsCount, setTotalProductsCount] = React.useState(0);
+    const [open, setOpen] = React.useState(false);
     const handlePageChange = (event, page) => {
         event.preventDefault();
         setSearchParams({
@@ -50,10 +51,12 @@ const ListProduct = () => {
 
 
     const addToCart = (product) => {
-        console.log("added to cart");
+        setOpen(true);
         setCart([...cart, product]);
     }
-
+    const handleClose = () => {
+        setOpen(false);
+    }
     return (
         <Outer>
             <Title>
@@ -83,6 +86,9 @@ const ListProduct = () => {
                 </Grid>
             </Container>
             <Pagination count={Math.ceil(totalProductsCount / 12)} sx={{ mt: 10 }} onChange={handlePageChange} />
+            <Snackbar open={open} autoHideDuration={1000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+                <Alert severity="success">Add to cart successfully</Alert>
+            </Snackbar>
         </Outer>
     );
 }
