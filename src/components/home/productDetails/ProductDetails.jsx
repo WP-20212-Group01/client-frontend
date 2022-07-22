@@ -1,7 +1,11 @@
-import { TableCell, TableRow } from '@mui/material';
+import { TableCell, TableRow, Snackbar, Alert } from '@mui/material';
 import React from 'react'
+import { useState, useEffect } from 'react';
 import { DetailLeft, DetailRight, Image, ProductPageDetail, Title, Price, Description, Functions, QuantityContainer, AddToCartButton } from './productDetails'
 import axios from '../../../axios.js';
+
+const cartFromLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]');
+
 export default function ProductDetails(props) {
     const { id } = props;
     const [product, setProduct] = React.useState({});
@@ -14,6 +18,23 @@ export default function ProductDetails(props) {
         }
         );
     }, [id]);
+
+    const [open, setOpen] = React.useState(false);
+    const [cart, setCart] = useState(cartFromLocalStorage);
+
+    //add to cart
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
+
+    const addToCart = (product) => {
+        setOpen(true);
+        setCart([...cart, product]);
+    }
+    const handleClose = () => {
+        setOpen(false);
+    }
+
     return (
         <>
             <ProductPageDetail>
@@ -61,13 +82,16 @@ export default function ProductDetails(props) {
                                                 +
                                             </div>
                                         </QuantityContainer>
-                                        <AddToCartButton>Add to cart</AddToCartButton>
+                                        <AddToCartButton onClick={() => addToCart(product)}>Add to cart</AddToCartButton>
                                     </Functions>
                                 </DetailRight>
                             </TableCell>
                         </TableRow>
                     </tbody>
                 </table>
+                <Snackbar open={open} autoHideDuration={1000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+                    <Alert severity="success">Add to cart successfully</Alert>
+                </Snackbar>
             </ProductPageDetail>
         </>
     )
