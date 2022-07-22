@@ -1,11 +1,16 @@
-import { Grid, Pagination } from "@mui/material";
-import React from "react";
+import { Grid, Pagination, Alert, Snackbar } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { Outer, Title, TitleSecondaryText, TitleText, Container, ProductContainer, ImageContainer, Image, ProductTitle, Price, Button } from "./listProduct.js";
 import { useSearchParams, Link } from "react-router-dom";
 import axios from '../../axios.js';
+
+const cartFromLocalStorage = JSON.parse(localStorage.getItem('cart') || '[]');
+
+
 const ListProduct = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [totalProductsCount, setTotalProductsCount] = React.useState(0);
+    const [open, setOpen] = React.useState(false);
     const handlePageChange = (event, page) => {
         event.preventDefault();
         setSearchParams({
@@ -32,6 +37,26 @@ const ListProduct = () => {
         }
         );
     }, [searchParams])
+
+    const [cart, setCart] = useState(cartFromLocalStorage);
+
+    //add to cart
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
+
+
+
+
+
+
+    const addToCart = (product) => {
+        setOpen(true);
+        setCart([...cart, product]);
+    }
+    const handleClose = () => {
+        setOpen(false);
+    }
     return (
         <Outer>
             <Title>
@@ -54,13 +79,16 @@ const ListProduct = () => {
                                 </Link>
                                 <ProductTitle>{product.name}</ProductTitle>
                                 <Price>${product.price}</Price>
-                                <Button>Add to cart</Button>
+                                <Button onClick={() => addToCart(product)}>Add to cart</Button>
                             </ProductContainer>
                         </Grid>
                     ))}
                 </Grid>
             </Container>
             <Pagination count={Math.ceil(totalProductsCount / 12)} sx={{ mt: 10 }} onChange={handlePageChange} />
+            <Snackbar open={open} autoHideDuration={1000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}>
+                <Alert severity="success">Add to cart successfully</Alert>
+            </Snackbar>
         </Outer>
     );
 }
