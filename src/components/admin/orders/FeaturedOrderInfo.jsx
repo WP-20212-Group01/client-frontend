@@ -16,16 +16,6 @@ export default function FeaturedOrderInfo() {
             </div>
             <div className="featuredInfo">
                 <Card>
-                    <CardHeader title="Total Income" />
-                    <CardContent>
-                        <Typography variant="h5" component="h2">
-                            $1000
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </div>
-            <div className="featuredInfo">
-                <Card>
                     <CardHeader title="On Delivery" />
                     <CardContent>
                         <Typography variant="h5" component="h2">

@@ -59,8 +59,7 @@ export default function ProductTable() {
             const { data } = response.data;
             const { total } = response.data.pagination;
             setTotal(total);
-            const processedData = data.map(({ _id: id, name, category: { name: categoryName }, stock, status, price }) => ({ id, name, categoryName, stock, status, price }));
-            console.log(processedData);
+            const processedData = data.map(({ _id: id, name, category: { name: categoryName }, stock, status, price, image }) => ({ id, name, categoryName, stock, status, price, image }));
             setRows(processedData);
         }
         fetchData();
@@ -93,9 +92,22 @@ export default function ProductTable() {
         }
     };
 
-    const processRowUpdate = (newRow) => {
+    const processRowUpdate = async (newRow) => {
         const updatedRow = { ...newRow, isNew: false };
-        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+        if (newRow.isNew) {
+            const body = {
+                category: newRow.categoryName,
+                name: newRow.name,
+                price: parseFloat(newRow.price),
+                stock: newRow.stock,
+                status: "available",
+                image: newRow.image
+            };
+            const response = await axios.post('/admin/product', body);
+            if (response.status === 201) {
+                setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+            }
+        }
         return updatedRow;
     };
 
@@ -128,6 +140,13 @@ export default function ProductTable() {
         {
             field: 'price',
             headerName: 'Price',
+            type: 'string',
+            flex: 0.3,
+            editable: true
+        },
+        {
+            field: 'image',
+            headerName: 'Image URL',
             type: 'string',
             flex: 0.3,
             editable: true

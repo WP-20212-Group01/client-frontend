@@ -1,21 +1,22 @@
 import React from 'react'
 import { Container, CssBaseline, Avatar, Typography, TextField, Grid, Box, Button } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import { Link } from 'react-router-dom'
-
+import { Link, useNavigate } from 'react-router-dom'
+import axios from '../../axios'
 export default function Login() {
-    const [errorEmail, setErrorEmail] = React.useState('')
+    const navigate = useNavigate();
+    const [errorUsername, setErrorUsername] = React.useState('')
     const [errorPassword, setErrorPassword] = React.useState('')
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const email = data.get('email');
+        const username = data.get('username');
         const password = data.get('password');
-        if (!email.includes('@') || email === '') {
-            setErrorEmail('Invalid email');
+        if (username === '') {
+            setErrorUsername('Username is required');
         }
         else {
-            setErrorEmail('');
+            setErrorUsername('');
         }
         if (password.length < 8) {
             setErrorPassword('Password must be at least 8 characters');
@@ -24,7 +25,12 @@ export default function Login() {
             setErrorPassword('');
         }
         // All condition are met, login the user
-
+        const response = await axios.post('/auth/login', { username, password });
+        if (response.status === 201) {
+            const token = response.data;
+            localStorage.setItem('adminToken', token);
+            navigate('/admin/products');
+        }
     }
     return (
         <Container component="main" maxWidth="xs">
@@ -44,7 +50,7 @@ export default function Login() {
                     Login
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                    <TextField margin="normal" type="email" required fullWidth id="email" label="Email" name="email" autoFocus helperText={errorEmail} />
+                    <TextField margin="normal" type="text" required fullWidth id="username" label="Username" name="username" autoFocus helperText={errorUsername} />
                     <TextField margin="normal" type="password" required fullWidth id="password" label="Password" name="password" autoFocus helperText={errorPassword} />
                     <Button
                         type="submit"
@@ -63,11 +69,6 @@ export default function Login() {
                         <Grid item xs>
                             <Link to="/" variant="body2">
                                 Back to home page
-                            </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link to="/register" variant="body2">
-                                Don&apos;t have an account? Register
                             </Link>
                         </Grid>
                     </Grid>

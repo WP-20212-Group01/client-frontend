@@ -28,6 +28,14 @@ const Navbar = () => {
                         <Link
                             variant="button"
                             color="text.primary"
+                            href="/login"
+                            sx={{ my: 1, mx: 1.5 }}
+                        >
+                            Login
+                        </Link>
+                        <Link
+                            variant="button"
+                            color="text.primary"
                             href="/cart"
                             sx={{ my: 1, mx: 1.5 }}
                         >

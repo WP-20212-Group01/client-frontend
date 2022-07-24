@@ -12,50 +12,20 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { TablePagination } from '@mui/material';
-
-/* Creating mock data */
-function createData(orderId, name, phone, email, address, status, cancelReason) {
-    return {
-        orderId,
-        name,
-        phone,
-        email,
-        address,
-        status,
-        cancelReason,
-        orderDate: new Date().toLocaleDateString(),
-        history: [
-            {
-                product: 'Product 1',
-                amount: 1,
-            },
-            {
-                product: 'Product 2',
-                amount: 2,
-            },
-        ],
-    };
-}
-
-const rows = [
-    createData(1, 'John Smith', '+1 (234) 567-890', 'mail@mail.com', '123 Main St', 'Pending', '', new Date().toLocaleDateString()),
-    createData(2, 'John Smith 2', '+1 (234) 567-890', 'mail@mail.com', '123 Main St', 'Pending', '', new Date().toLocaleDateString()),
-    createData(3, 'John Smith 3', '+1 (234) 567-890', 'mail@mail.com', '123 Main St', 'Pending', '', new Date().toLocaleDateString()),
-    createData(4, 'John Smith 4', '+1 (234) 567-890', 'mail@mail.com', '123 Main St', 'Pending', '', new Date().toLocaleDateString()),
-    createData(5, 'John Smith 5', '+1 (234) 567-890', 'mail@mail.com', '123 Main St', 'Pending', '', new Date().toLocaleDateString()),
-    createData(6, 'John Smith 6', '+1 (234) 567-890', 'mail@mail.com', '123 Main St', 'Pending', '', new Date().toLocaleDateString()),
-    createData(7, 'John Smith 7', '+1 (234) 567-890', 'mail@mail.com', '123 Main St', 'Pending', '', new Date().toLocaleDateString()),
-    createData(8, 'John Smith 8', '+1 (234) 567-890', 'mail@mail.com', '123 Main St', 'Pending', '', new Date().toLocaleDateString()),
-    createData(9, 'John Smith 9', '+1 (234) 567-890', 'mail@mail.com', '123 Main St', 'Pending', '', new Date().toLocaleDateString()),
-    createData(10, 'John Smith 10', '+1 (234) 567-890', 'mail@mail.com', '123 Main St', 'Pending', '', new Date().toLocaleDateString()),
-    createData(11, 'John Smith 11', '+1 (234) 567-890', 'mail@mail.com', '123 Main St', 'Pending', '', new Date().toLocaleDateString()),
-];
-/* End of creating mock data */
+import { TablePagination, Checkbox, Button, Select, MenuItem } from '@mui/material';
+import axios from '../../../axios';
 function Row(props) {
-    const { row } = props;
+    let { row } = props;
     const [open, setOpen] = React.useState(false);
-
+    const { setSelectedRows, selectedRows } = props;
+    const handleChange = (event) => {
+        if (event.target.checked) {
+            setSelectedRows([...selectedRows, row]);
+        }
+        else {
+            setSelectedRows(selectedRows.filter(item => item.id !== row.id));
+        }
+    }
     return (
         <React.Fragment>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -67,13 +37,14 @@ function Row(props) {
                     >
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
+                    <Checkbox onChange={handleChange} />
                 </TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell align="right">{row.phone}</TableCell>
                 <TableCell align="right">{row.email}</TableCell>
                 <TableCell align="right">{row.address}</TableCell>
                 <TableCell align="right">{row.status}</TableCell>
-                <TableCell align="right">{row.cancelReason}</TableCell>
+                <TableCell align="right">{row.cancelReason ? row.cancelReason : null}</TableCell>
                 <TableCell align="right">{row.orderDate}</TableCell>
             </TableRow>
             <TableRow>
@@ -91,10 +62,10 @@ function Row(props) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.history.map((historyRow) => (
-                                        <TableRow>
-                                            <TableCell>{historyRow.product}</TableCell>
-                                            <TableCell>{historyRow.amount}</TableCell>
+                                    {row.products.map((historyRow, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>{historyRow.product.name}</TableCell>
+                                            <TableCell>{historyRow.quantity}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -108,43 +79,83 @@ function Row(props) {
 }
 
 export default function OrderTable() {
+
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [status, setStatus] = React.useState('');
+    const [selectedRows, setSelectedRows] = React.useState([]);
+    const [orders, setOrders] = React.useState([]);
+    const handleChange = (event) => {
+        setStatus(event.target.value);
+    }
+    async function fetchData() {
+        const response = await axios.get('/admin/order', {
+            params: {
+                page: page + 1,
+            }
+        });
+        setOrders(response.data);
+    }
+    const handleClick = async () => {
+        selectedRows.forEach(async (row) => {
+            let cancelReason;
+            if (status === 'cancelled') {
+                cancelReason = 'Cancelled by admin';
+            }
+            else {
+                cancelReason = '';
+            }
+            await axios.put(`/admin/order/${row._id}`, {
+                name: row.name,
+                phone: row.phone,
+                email: row.email,
+                address: row.address,
+                status: status,
+                cancelReason: cancelReason,
+            });
+        })
+        fetchData();
+    }
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     }
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    }
+    React.useEffect(() => {
+        fetchData();
+    }, [page]);
     return (
-        <TableContainer component={Paper}>
-            <Table aria-label="collapsible table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell />
-                        <TableCell>Name</TableCell>
-                        <TableCell align="right">Phone</TableCell>
-                        <TableCell align="right">Email</TableCell>
-                        <TableCell align="right">Address</TableCell>
-                        <TableCell align="right">Status</TableCell>
-                        <TableCell align="right">Cancel Reason</TableCell>
-                        <TableCell align="right">Order Date</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                        <Row key={row.id} row={row} />
-                    ))}
-                </TableBody>
-            </Table>
-            <TablePagination
-                rowsPerPage={rowsPerPage}
-                count={rows.length}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </TableContainer>
+        <>
+            <TableContainer component={Paper}>
+                <Table aria-label="collapsible table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell />
+                            <TableCell>Name</TableCell>
+                            <TableCell align="right">Phone</TableCell>
+                            <TableCell align="right">Email</TableCell>
+                            <TableCell align="right">Address</TableCell>
+                            <TableCell align="right">Status</TableCell>
+                            <TableCell align="right">Cancel Reason</TableCell>
+                            <TableCell align="right">Order Date</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {orders.map((row) => (
+                            <Row key={row._id} row={row} setSelectedRows={setSelectedRows} selectedRows={selectedRows} />
+                        ))}
+                    </TableBody>
+                </Table>
+                <TablePagination
+                    rowsPerPage={12}
+                    count={100}
+                    page={page}
+                    onPageChange={handleChangePage}
+                />
+            </TableContainer>
+            <Button onClick={handleClick}>Mark selected orders as</Button>
+            <Select value={status} onChange={handleChange} label="Status" defaultValue="pending">
+                <MenuItem value="pending">Pending</MenuItem>
+                <MenuItem value="completed">Completed</MenuItem>
+                <MenuItem value="cancelled">Cancelled</MenuItem>
+            </Select>
+        </>
     );
 }
